@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stat Joueur{% endblock %}
+
+{% block body %}
+
+ <h2>Statistiques Joueur SEPQ</h2>
+
+
+
+    <div class="row">
+        {{ form_start(filtre)}}
+
+        <div class="inputPoste">
+            {{ form_row(filtre.saison)}}
+        </div>
+        
+
+        {{ form_row(filtre.recherche, {'label': 'Rechercher un joueur (prénom) : '})}}
+
+ <div class="text-center">
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+        </div>
+
+        {{ form_end(filtre)}}
+    </div>
+
+<br>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Poste</th>
+                <th>Saison</th>
+
+                {#<th><a href="{{ path('app_joueur_classement_but')}}">Buts</a><i class="fa fa-filter"></i></th>
+                <th><a href="{{ path('app_joueur_classement_passe')}}">Passes</a><i class="fa fa-filter"></i></th>
+                <th><a href="{{ path('app_joueur_classement_carton_jaune')}}">C.Jaunes</a><i class="fa fa-filter"></i></th>
+                <th><a href="{{ path('app_joueur_classement_carton_rouge')}}">C.Rouges</a><i class="fa fa-filter"></i></th>
+                <th class="poste">Poste</th>
+                <th>action</th> #}
+            </tr>
+        </thead>
+        <tbody>
+        {% for joueur in j %}
+            <tr>
+                <td>{{ joueur.id }}</td>
+                <td>{{ joueur.nom | upper }}</td>
+                <td>{{ joueur.prenom }}</td> 
+                <td class="poste">{{ joueur.posteId.libelle }}</td> 
+                                    {# <td class="poste">{{ joueur.saisons.annee }}</td>  #}
+
+
+               
+                {% for saison in s %}
+                    <td class="poste">{{ saison.annee }}</td> 
+                {% else %}
+                    <tr>
+                        <td colspan="9">Pas de saison</td>
+                    </tr>
+                {% endfor %}
+
+
+                {# <td>{{ joueur.statId }}</td> #}
+                {# <td>{{ joueur.nbBut }}</td>
+                <td>{{ joueur.nbPasse }}</td>
+                <td>{{ joueur.nbCartonJaune }}</td>
+                <td>{{ joueur.nbCartonRouge }}</td>#}
+                <td>
+                    {# <a class="btn btn-success" href="{{ path('app_joueur_show', {'id': joueur.id}) }}">Voir</a> #}
+                    <a class="btn btn-warning" href="{{ path('app_joueur_edit', {'id': joueur.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">Aucune donnée pour votre recherche</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('app_joueur_new') }}">Créer</a>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter Joueur{% endblock %}
+
+{% block body %}
+    <h1>Créer un nouveau Joueur</h1>
+    <br>
+
+
+    {# {{ include('joueur/_form.html.twig') }} #}
+    {{ form_start(form) }}
+    {# {{ form_row(form.brochure) }} #}
+    {{ form_widget(form) }}
+    {# <button class="btn btn-warning">{{ button_label|default('Save') }} modifier</button> #}
+    
+    <button class="btn btn-primary">
+        Ajouter
+    </button>
+    {{ form_end(form) }}
+
+
+<br>
+    <a class="btn btn-secondary" href="{{ path('app_joueur_index') }}">Retour à la liste</a>
+{% endblock %}
